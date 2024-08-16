@@ -9,7 +9,8 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    color: #333;
+    color: #f5f5f5; /* Color de texto claro para contraste con el fondo oscuro */
+    background-color: #121212; /* Fondo oscuro para el body */
 }
 
 /* Encabezado */
@@ -18,7 +19,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #333;
+    background-color: #000; /* Fondo negro para el encabezado */
 }
 
 header .logo img {
@@ -28,15 +29,15 @@ header .logo img {
 header nav ul {
     display: flex;
     list-style: none;
-    margin-left: 10px;
+    margin-left: 40px;
 }
 
 header nav ul li {
-    margin-left: 130px; /* Ajustado para una mejor distribución */
+    margin-left: 80px; /* Ajustado para una mejor distribución */
 }
 
 header nav ul li a {
-    color: white;
+    color: #f0f0f0; /* Color de texto claro */
     text-decoration: none;
     font-size: 18px;
 }
@@ -47,7 +48,7 @@ header .auth-buttons {
 }
 
 header .auth-buttons .btn {
-    background-color: #ff5733;
+    background-color: #e91e63; /* Fucsia vibrante */
     color: white;
     padding: 10px 20px;
     text-decoration: none;
@@ -69,7 +70,7 @@ header .auth-buttons .btn {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: #fff; /* Texto blanco para contraste en el hero */
     text-align: center;
 }
 
@@ -79,7 +80,7 @@ header .auth-buttons .btn {
 }
 
 .hero .cta-buttons .btn {
-    background-color: #ff5733;
+    background-color: #e91e63; /* Fucsia vibrante */
     color: white;
     padding: 10px 20px;
     text-decoration: none;
@@ -96,11 +97,18 @@ header .auth-buttons .btn {
 .catalogo h2 {
     font-size: 36px;
     margin-bottom: 30px;
+    color: #e91e63; /* Fucsia vibrante */
+    font-weight: bold;
+    text-transform: uppercase; /* Hace que el título esté en mayúsculas */
+    border-bottom: 2px solid #e91e63; /* Línea decorativa debajo del título */
+    display: inline-block;
+    padding-bottom: 10px;
 }
 
 .burger-grid {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .burger-item {
@@ -115,19 +123,20 @@ header .auth-buttons .btn {
 .burger-item h3 {
     margin-top: 10px;
     font-size: 22px;
-    color: #ff5733;
+    color: #e91e63; /* Fucsia vibrante */
 }
 
 /* Testimonios */
 .testimonios {
     padding: 40px;
-    background-color: #f4f4f4;
+    background-color: #1e1e1e; /* Fondo oscuro para testimonios */
     text-align: center;
 }
 
 .testimonios p {
     font-style: italic;
     margin-bottom: 20px;
+    color: #f0f0f0; /* Texto claro */
 }
 
 /* Sobre Nosotros */
@@ -139,8 +148,8 @@ header .auth-buttons .btn {
 /* Pie de Página */
 footer {
     padding: 20px;
-    background-color: #333;
-    color: white;
+    background-color: #000; /* Fondo negro para el pie de página */
+    color: #f0f0f0; /* Texto claro */
     text-align: center;
 }
 
@@ -156,10 +165,10 @@ footer .redes-sociales img {
 
 /* Formulario de Autenticación */
 .auth-container {
-    background-color: white;
+    background-color: #222; /* Fondo oscuro para el contenedor de autenticación */
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     width: 100%;
     max-width: 400px;
     text-align: center;
@@ -169,7 +178,7 @@ footer .redes-sociales img {
 .auth-container h2 {
     margin-bottom: 20px;
     font-size: 24px;
-    color: #333;
+    color: #e91e63; /* Fucsia vibrante */
 }
 
 .input-group {
@@ -181,19 +190,21 @@ footer .redes-sociales img {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #555;
+    color: #f0f0f0; /* Texto claro */
 }
 
 .input-group input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #555; /* Borde gris oscuro */
     border-radius: 5px;
     font-size: 16px;
+    background-color: #333; /* Fondo de entrada oscuro */
+    color: #f0f0f0; /* Texto claro */
 }
 
 .btn {
-    background-color: #ff5733;
+    background-color: #e91e63; /* Fucsia vibrante */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -206,23 +217,23 @@ footer .redes-sociales img {
 }
 
 .btn:hover {
-    background-color: #e14a4e;
+    background-color: #c2185b; /* Fucsia oscuro */
 }
 
 .google-btn {
-    background-color: #4285f4;
+    background-color: #4285f4; /* Color de Google */
 }
 
 .google-btn:hover {
-    background-color: #357ae8;
+    background-color: #357ae8; /* Color de Google oscuro */
 }
 
 p {
-    color: #777;
+    color: #bbb; /* Texto gris claro */
 }
 
 p a {
-    color: #ff5733;
+    color: #e91e63; /* Fucsia vibrante */
     text-decoration: none;
 }
 
@@ -249,6 +260,7 @@ p a:hover {
     display: inline-block;
     margin-right: 10px;
     cursor: pointer;
+    color: #e91e63; /* Fucsia vibrante */
 }
 
 .dropdown-menu {
@@ -256,9 +268,9 @@ p a:hover {
     position: absolute;
     top: 60px;
     right: 0;
-    background-color: white;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #222; /* Fondo oscuro para el menú desplegable */
+    border: 1px solid #333; /* Borde gris oscuro */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 4px;
     width: 150px; /* Ajusta el ancho según tus necesidades */
 }
@@ -266,12 +278,12 @@ p a:hover {
 .dropdown-menu a {
     display: block;
     padding: 10px;
-    color: #333;
+    color: #f0f0f0; /* Texto claro */
     text-decoration: none;
 }
 
 .dropdown-menu a:hover {
-    background-color: #f4f4f4;
+    background-color: #333; /* Fondo oscuro para el hover */
 }
 
 /* Mostrar el menú cuando se pasa el ratón por encima */
@@ -280,31 +292,44 @@ p a:hover {
 }
 
 /* Sección de Productos */
+/* Estilos para la sección de productos */
 .productos {
     padding: 40px;
+    background-color: #121212; /* Fondo oscuro para la sección de productos */
     text-align: center;
 }
 
 .productos h2 {
     font-size: 36px;
     margin-bottom: 30px;
+    color: #e91e63; /* Fucsia vibrante */
+    font-weight: bold;
+    text-transform: uppercase; /* Hace que el título esté en mayúsculas */
+    border-bottom: 2px solid #e91e63; /* Línea decorativa debajo del título */
+    display: inline-block;
+    padding-bottom: 10px;
 }
 
 .producto-grid {
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
+    gap: 20px; /* Espacio entre los productos */
+    justify-content: center; /* Centra los productos horizontalmente */
 }
 
 .producto-item {
-    max-width: 300px;
-    margin: 20px;
-    border: 1px solid #ddd;
+    background-color: #1e1e1e; /* Fondo oscuro para cada producto */
     border-radius: 10px;
     overflow: hidden;
-    text-align: left;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: calc(33.333% - 40px); /* Tres columnas con espacio entre ellos */
+    margin-bottom: 20px; /* Espacio inferior entre filas */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves para efectos */
+}
+
+.producto-item:hover {
+    transform: scale(1.05); /* Escala el producto cuando se pasa el ratón */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Sombra más prominente en hover */
 }
 
 .producto-item img {
@@ -315,20 +340,23 @@ p a:hover {
 
 .producto-item h3 {
     margin: 10px;
-    font-size: 22px;
-    color: #ff5733;
+    font-size: 24px;
+    color: #e91e63; /* Fucsia vibrante */
 }
 
 .producto-item p {
-    margin: 10px;
-    color: #555;
+    margin: 0 10px 10px;
+    color: #bbb; /* Texto gris claro */
+    font-size: 16px;
+    line-height: 1.4; /* Mejora la legibilidad */
 }
 
 .precio {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
-    color: #ff5733;
+    color: #e91e63; /* Fucsia vibrante */
     margin: 10px;
+    display: inline-block; /* Mantiene el precio en línea con el texto */
 }
 
 /* Estilos para el perfil de usuario en el header */
@@ -346,9 +374,94 @@ p a:hover {
 .profile-icon {
     font-size: 28px;
     margin-right: 0;
+    color: #e91e63; /* Fucsia vibrante */
 }
 
 .dropdown-menu {
     top: 60px;
     right: 0;
+}
+
+/* Estilos del modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000; /* Encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permite el desplazamiento si es necesario */
+    background-color: rgba(0,0,0,0.6); /* Fondo semitransparente más oscuro */
+}
+
+.modal-content {
+    background-color: #333; /* Fondo oscuro para el contenido del modal */
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%; /* Ancho del modal */
+    max-width: 600px;
+    position: relative;
+}
+
+.close {
+    color: #f0f0f0; /* Color claro para el icono de cerrar */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #e91e63; /* Fucsia vibrante para el hover del icono de cerrar */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.modal h3 {
+    color: #e91e63; /* Fucsia vibrante */
+    margin: 10px 0;
+}
+
+.quantity-container,
+.cooking-options {
+    margin: 15px 0;
+}
+
+.quantity-container input {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #555; /* Borde gris oscuro */
+    border-radius: 5px;
+    background-color: #333; /* Fondo de entrada oscuro */
+    color: #f0f0f0; /* Texto claro */
+}
+
+.cooking-options select {
+    padding: 5px;
+    border: 1px solid #555; /* Borde gris oscuro */
+    border-radius: 5px;
+    background-color: #333; /* Fondo de entrada oscuro */
+    color: #f0f0f0; /* Texto claro */
+}
+
+.btn {
+    background-color: #e91e63; /* Fucsia vibrante */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #c2185b; /* Fucsia oscuro */
 }

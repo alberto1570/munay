@@ -17,7 +17,7 @@
             <div class="producto-grid">
                 <!-- Fila 1 -->
                 <div class="producto-item">
-                    <img src="assets/imagenes/producto1.jpg" alt="Hamburguesa Especial">
+                    <img src="assets/imagenes/lotus.jpg" alt="Hamburguesa Especial">
                     <h3>Hamburguesa Especial</h3>
                     <p>Una deliciosa hamburguesa con queso, bacon y nuestra salsa secreta.</p>
                     <p class="precio">$12.99</p>
@@ -75,6 +75,7 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth();
+        let isAuthenticated = false; // Variable global para verificar autenticación
 
         onAuthStateChanged(auth, user => {
             const loginBtn = document.getElementById('login-btn');
@@ -85,6 +86,7 @@
             const signOutBtn = document.getElementById('sign-out-btn');
 
             if (user) {
+                isAuthenticated = true;
                 loginBtn.style.display = 'none';
                 registerBtn.style.display = 'none';
                 userMenu.style.display = 'block';
@@ -100,6 +102,7 @@
                     });
                 });
             } else {
+                isAuthenticated = false;
                 loginBtn.style.display = 'block';
                 registerBtn.style.display = 'block';
                 userMenu.style.display = 'none';
@@ -123,5 +126,79 @@
             });
         });
     </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productItems = document.querySelectorAll('.producto-item');
+            const modal = document.getElementById('product-modal');
+            const modalImg = document.getElementById('modal-img');
+            const modalName = document.getElementById('modal-name');
+            const modalDescription = document.getElementById('modal-description');
+            const modalPrice = document.getElementById('modal-price');
+            const closeModal = document.querySelector('.close');
+            const addToCartBtn = document.getElementById('add-to-cart-btn');
+
+            productItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if (typeof isAuthenticated !== 'undefined' && !isAuthenticated) {
+                        // Redirige al usuario a la página de login si no está autenticado
+                        window.location.href = 'login.html';
+                        return;
+                    }
+
+                    // Si el usuario está autenticado, muestra el modal
+                    const imgSrc = item.querySelector('img').src;
+                    const name = item.querySelector('h3').textContent;
+                    const description = item.querySelector('p').textContent;
+                    const price = item.querySelector('.precio').textContent;
+
+                    modalImg.src = imgSrc;
+                    modalName.textContent = name;
+                    modalDescription.textContent = description;
+                    modalPrice.textContent = price;
+
+                    modal.style.display = 'block';
+                });
+            });
+
+            closeModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', event => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            addToCartBtn.addEventListener('click', () => {
+                alert('Producto añadido al carrito');
+            });
+        });
+    </script>
+    
+    <!-- Panel de Detalles (Modal) -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modal-img" src="" alt="Imagen del Producto">
+            <h3 id="modal-name">Nombre del Producto</h3>
+            <p id="modal-description">Descripción del Producto</p>
+            <p id="modal-price">$00.00</p>
+            <div class="quantity-container">
+                <label for="quantity">Cantidad:</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1">
+            </div>
+            <div class="cooking-options">
+                <label for="cooking-point">Punto de la Carne:</label>
+                <select id="cooking-point" name="cooking-point">
+                    <option value="rare">Menos del punto</option>
+                    <option value="medium-rare">Al punto</option>
+                    <option value="medium">Mas del punto</option>
+                </select>
+            </div>
+            <button id="add-to-cart-btn" class="btn">Añadir al Carrito</button>
+        </div>
+    </div>
 </body>
 </html>
