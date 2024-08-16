@@ -3,10 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Munay food experience</title>
+    <title>Munay Food Experience</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Placeholder para el header -->
+    <div id="header-placeholder"></div>
+
+    <main>
+        <!-- Sección de Productos -->
+        <section class="productos">
+            <h2>Nuestros Productos</h2>
+            <div class="producto-grid">
+                <!-- Fila 1 -->
+                <div class="producto-item">
+                    <img src="assets/imagenes/producto1.jpg" alt="Hamburguesa Especial">
+                    <h3>Hamburguesa Especial</h3>
+                    <p>Una deliciosa hamburguesa con queso, bacon y nuestra salsa secreta.</p>
+                    <p class="precio">$12.99</p>
+                </div>
+                <div class="producto-item">
+                    <img src="assets/imagenes/producto2.jpg" alt="Hamburguesa Vegana">
+                    <h3>Hamburguesa Vegana</h3>
+                    <p>Hamburguesa a base de plantas con guacamole y vegetales frescos.</p>
+                    <p class="precio">$10.99</p>
+                </div>
+                <div class="producto-item">
+                    <img src="assets/imagenes/producto3.jpg" alt="Batido de Chocolate">
+                    <h3>Batido de Chocolate</h3>
+                    <p>Un batido cremoso de chocolate que no te puedes perder.</p>
+                    <p class="precio">$5.99</p>
+                </div>
+            </div>
+            <div class="producto-grid">
+                <!-- Fila 2 -->
+                <div class="producto-item">
+                    <img src="assets/imagenes/producto4.jpg" alt="Ensalada Fresca">
+                    <h3>Ensalada Fresca</h3>
+                    <p>Una mezcla de verduras frescas con un aderezo ligero y saludable.</p>
+                    <p class="precio">$8.99</p>
+                </div>
+                <div class="producto-item">
+                    <img src="assets/imagenes/producto5.jpg" alt="Tacos Mexicanos">
+                    <h3>Tacos Mexicanos</h3>
+                    <p>Tacos rellenos de carne sazonada y acompañados de salsa picante.</p>
+                    <p class="precio">$11.99</p>
+                </div>
+                <div class="producto-item">
+                    <img src="assets/imagenes/producto6.jpg" alt="Pizza Margarita">
+                    <h3>Pizza Margarita</h3>
+                    <p>Pizza clásica con salsa de tomate, mozzarella y albahaca fresca.</p>
+                    <p class="precio">$13.99</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
@@ -24,7 +76,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth();
 
-        // Manejo de la autenticación del usuario
         onAuthStateChanged(auth, user => {
             const loginBtn = document.getElementById('login-btn');
             const registerBtn = document.getElementById('register-btn');
@@ -56,6 +107,10 @@
         });
 
         document.addEventListener('DOMContentLoaded', () => {
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => document.getElementById('header-placeholder').innerHTML = data);
+
             const googleSignInBtn = document.getElementById('google-signin-btn');
             googleSignInBtn.addEventListener('click', async () => {
                 const provider = new GoogleAuthProvider();
@@ -66,29 +121,7 @@
                     console.error('Error al iniciar sesión con Google:', error);
                 }
             });
-
-            fetch('header.html')
-                .then(response => response.text())
-                .then(data => document.getElementById('header-placeholder').innerHTML = data);
         });
     </script>
-
-    <div id="header-placeholder"></div>
-
-    <main class="auth-container">
-        <h2>Bienvenido a Munay Food Experience</h2>
-        <button id="google-signin-btn" class="btn google-btn">Iniciar sesión con Google</button>
-        <!-- Área de perfil de usuario -->
-        <div id="user-menu" class="user-menu" style="display: none;">
-            <img id="profile-pic" class="profile-pic" src="" alt="Foto de perfil">
-            <button id="profile-icon" class="btn">👤</button>
-            <div class="dropdown-menu">
-                <a href="#">Ajustes</a>
-                <a href="#">Pedidos</a>
-                <a href="#">Carrito</a>
-                <a href="#" id="sign-out-btn">Cerrar Sesión</a>
-            </div>
-        </div>
-    </main>
 </body>
 </html>

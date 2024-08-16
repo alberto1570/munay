@@ -5,7 +5,6 @@
     </div>
     <nav>
         <ul>
-            
             <li><a href="#">Menú</a></li>
             <li><a href="#">Contacto</a></li>
         </ul>
@@ -15,6 +14,16 @@
         <a href="register.html" class="btn" id="register-btn">Registrarse</a>
         <button class="btn" id="logout-btn" style="display:none;">Cerrar Sesión</button>
     </div>
+    <div id="user-menu" class="user-menu" style="display: none;">
+        <img id="profile-pic" class="profile-pic" src="" alt="Foto de perfil">
+        <button id="profile-icon" class="btn">👤</button>
+        <div class="dropdown-menu">
+            <a href="#">Ajustes</a>
+            <a href="#">Pedidos</a>
+            <a href="#">Carrito</a>
+            <a href="#" id="sign-out-btn">Cerrar Sesión</a>
+        </div>
+    </div>
 </header>
 
 <script type="module">
@@ -22,29 +31,24 @@
     
     const auth = getAuth();
 
-    // Controlar la visibilidad de los botones según el estado de autenticación del usuario
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // Usuario autenticado
             document.getElementById('login-btn').style.display = 'none';
             document.getElementById('register-btn').style.display = 'none';
             document.getElementById('logout-btn').style.display = 'block';
         } else {
-            // Usuario no autenticado
             document.getElementById('login-btn').style.display = 'block';
             document.getElementById('register-btn').style.display = 'block';
             document.getElementById('logout-btn').style.display = 'none';
         }
     });
 
-    // Manejar el evento de cerrar sesión
-    document.getElementById('logout-btn').addEventListener('click', async () => {
-        try {
-            await signOut(auth);
-            console.log('Sesión cerrada con éxito.');
-            window.location.href = 'index.html'; // Redirigir a la página de inicio después de cerrar sesión
-        } catch (error) {
+    document.getElementById('sign-out-btn').addEventListener('click', () => {
+        signOut(auth).then(() => {
+            console.log('Sesión cerrada');
+            window.location.href = 'index.html'; // Redirige a la página principal
+        }).catch((error) => {
             console.error('Error al cerrar sesión:', error);
-        }
+        });
     });
 </script>
