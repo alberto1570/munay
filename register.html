@@ -29,7 +29,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
         // Configuración de Firebase
         const firebaseConfig = {
@@ -55,8 +55,15 @@
 
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                console.log('Registro exitoso:', userCredential.user);
-                window.location.href = 'index.html'; // Redirigir después de registrarse
+                const user = userCredential.user;
+
+                // Enviar correo de verificación
+                await sendEmailVerification(user);
+                console.log('Correo de verificación enviado');
+
+                alert('Por favor, revisa tu correo electrónico para verificar tu cuenta.');
+                window.location.href = 'login.html'; // Redirigir a la página de inicio de sesión
+
             } catch (error) {
                 console.error('Error al registrarse:', error.message);
                 alert(`Error al registrarse: ${error.message}`);

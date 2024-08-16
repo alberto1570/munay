@@ -15,8 +15,8 @@
         <button class="btn" id="logout-btn" style="display:none;">Cerrar Sesión</button>
     </div>
     <div id="user-menu" class="user-menu" style="display: none;">
-        <img id="profile-pic" class="profile-pic" src="" alt="Foto de perfil">
-        <button id="profile-icon" class="btn">👤</button>
+        <img id="profile-pic" class="profile-pic" src="" alt="Foto de perfil" style="display:none;">
+        <button id="profile-icon" class="btn" style="display:none;">👤</button>
         <div class="dropdown-menu">
             <a href="#">Ajustes</a>
             <a href="#">Pedidos</a>
@@ -32,14 +32,33 @@
     const auth = getAuth();
 
     onAuthStateChanged(auth, (user) => {
+        const profilePic = document.getElementById('profile-pic');
+        const profileIcon = document.getElementById('profile-icon');
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userMenu = document.getElementById('user-menu');
+
         if (user) {
-            document.getElementById('login-btn').style.display = 'none';
-            document.getElementById('register-btn').style.display = 'none';
-            document.getElementById('logout-btn').style.display = 'block';
+            loginBtn.style.display = 'none';
+            registerBtn.style.display = 'none';
+            logoutBtn.style.display = 'block';
+            userMenu.style.display = 'block';
+
+            if (user.photoURL) {
+                profilePic.src = user.photoURL;
+                profilePic.style.display = 'block';
+                profileIcon.style.display = 'none';
+            } else {
+                profilePic.src = 'default-profile-icon.png'; // Ruta de la imagen predeterminada
+                profilePic.style.display = 'block';
+                profileIcon.style.display = 'none';
+            }
         } else {
-            document.getElementById('login-btn').style.display = 'block';
-            document.getElementById('register-btn').style.display = 'block';
-            document.getElementById('logout-btn').style.display = 'none';
+            loginBtn.style.display = 'block';
+            registerBtn.style.display = 'block';
+            logoutBtn.style.display = 'none';
+            userMenu.style.display = 'none';
         }
     });
 

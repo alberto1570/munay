@@ -29,7 +29,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
         // Configuración de Firebase
         const firebaseConfig = {
@@ -54,11 +54,20 @@
             const password = document.getElementById('login-password').value;
 
             try {
-                await signInWithEmailAndPassword(auth, email, password);
-                console.log('Inicio de sesión exitoso');
-                window.location.href = 'index.html'; // Redirigir después de iniciar sesión
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Verificar si el correo electrónico ha sido verificado
+                if (user.emailVerified) {
+                    console.log('Inicio de sesión exitoso');
+                    window.location.href = 'index.html'; // Redirigir después de iniciar sesión
+                } else {
+                    alert('Por favor, verifica tu correo electrónico antes de iniciar sesión.');
+                    await auth.signOut(); // Opcional: Cierra la sesión si el correo no está verificado
+                }
             } catch (error) {
-                console.error('Error al iniciar sesión:', error);
+                console.error('Error al iniciar sesión:', error.message);
+                alert(`Error al iniciar sesión: ${error.message}`);
             }
         });
 
@@ -68,11 +77,12 @@
             const provider = new GoogleAuthProvider();
 
             try {
-                await signInWithPopup(auth, provider);
-                console.log('Inicio de sesión con Google exitoso');
+                const result = await signInWithPopup(auth, provider);
+                console.log('Inicio de sesión con Google exitoso:', result.user);
                 window.location.href = 'index.html'; // Redirigir después de iniciar sesión
             } catch (error) {
-                console.error('Error al iniciar sesión con Google:', error);
+                console.error('Error al iniciar sesión con Google:', error.message);
+                alert(`Error al iniciar sesión con Google: ${error.message}`);
             }
         });
 
