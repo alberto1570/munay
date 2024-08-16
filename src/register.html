@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Incluir el header -->
+    <div id="header-placeholder"></div>
+
+    <main class="auth-container">
+        <h2>Registrarse</h2>
+        <form id="register-form">
+            <div class="input-group">
+                <label for="register-email">Correo Electrónico</label>
+                <input type="email" id="register-email" required>
+            </div>
+            <div class="input-group">
+                <label for="register-password">Contraseña</label>
+                <input type="password" id="register-password" required>
+            </div>
+            <button type="submit" class="btn">Registrarse</button>
+        </form>
+        <button id="google-register-btn" class="btn google-btn">Registrarse con Google</button>
+        <p>¿Ya tienes una cuenta? <a href="login.html">Inicia Sesión</a></p>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyD7nxrcQQQm8TLQdJqAOFYx47DxeRy1Xdg",
+            authDomain: "munay-d65ba.firebaseapp.com",
+            projectId: "munay-d65ba",
+            storageBucket: "munay-d65ba.appspot.com",
+            messagingSenderId: "93733098728",
+            appId: "1:93733098728:web:ec51e1b2f43e4649b5655d",
+            measurementId: "G-L5ZZKM7ZH2"
+        };
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Manejar registro con correo y contraseña
+        const registerForm = document.getElementById('register-form');
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                console.log('Registro exitoso:', userCredential.user);
+                window.location.href = 'index.html'; // Redirigir después de registrarse
+            } catch (error) {
+                console.error('Error al registrarse:', error.message);
+                alert(`Error al registrarse: ${error.message}`);
+            }
+        });
+
+        // Manejar registro con Google
+        const googleRegisterBtn = document.getElementById('google-register-btn');
+        googleRegisterBtn.addEventListener('click', async () => {
+            const provider = new GoogleAuthProvider();
+
+            try {
+                const result = await signInWithPopup(auth, provider);
+                console.log('Registro con Google exitoso:', result.user);
+                window.location.href = 'index.html'; // Redirigir después de registrarse
+            } catch (error) {
+                console.error('Error al registrarse con Google:', error.message);
+                alert(`Error al registrarse con Google: ${error.message}`);
+            }
+        });
+
+        // Cargar el header
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('header-placeholder').innerHTML = data);
+    </script>
+</body>
+</html>

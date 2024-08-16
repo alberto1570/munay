@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Incluir el header -->
+    <div id="header-placeholder"></div>
+
+    <main class="auth-container">
+        <h2>Iniciar Sesión</h2>
+        <form id="login-form">
+            <div class="input-group">
+                <label for="login-email">Correo Electrónico</label>
+                <input type="email" id="login-email" required>
+            </div>
+            <div class="input-group">
+                <label for="login-password">Contraseña</label>
+                <input type="password" id="login-password" required>
+            </div>
+            <button type="submit" class="btn">Iniciar Sesión</button>
+        </form>
+        <button id="google-login-btn" class="btn google-btn">Iniciar Sesión con Google</button>
+        <p>¿No tienes una cuenta? <a href="register.html">Regístrate</a></p>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+        // Configuración de Firebase
+        const firebaseConfig = {
+          apiKey: "AIzaSyD7nxrcQQQm8TLQdJqAOFYx47DxeRy1Xdg",
+          authDomain: "munay-d65ba.firebaseapp.com",
+          projectId: "munay-d65ba",
+          storageBucket: "munay-d65ba.appspot.com",
+          messagingSenderId: "93733098728",
+          appId: "1:93733098728:web:ec51e1b2f43e4649b5655d",
+          measurementId: "G-L5ZZKM7ZH2"
+        };
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+
+        // Manejar inicio de sesión con correo y contraseña
+        const loginForm = document.getElementById('login-form');
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                console.log('Inicio de sesión exitoso');
+                window.location.href = 'index.html'; // Redirigir después de iniciar sesión
+            } catch (error) {
+                console.error('Error al iniciar sesión:', error);
+            }
+        });
+
+        // Manejar inicio de sesión con Google
+        const googleLoginBtn = document.getElementById('google-login-btn');
+        googleLoginBtn.addEventListener('click', async () => {
+            const provider = new GoogleAuthProvider();
+
+            try {
+                await signInWithPopup(auth, provider);
+                console.log('Inicio de sesión con Google exitoso');
+                window.location.href = 'index.html'; // Redirigir después de iniciar sesión
+            } catch (error) {
+                console.error('Error al iniciar sesión con Google:', error);
+            }
+        });
+
+        // Cargar el header
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('header-placeholder').innerHTML = data);
+    </script>
+</body>
+</html>

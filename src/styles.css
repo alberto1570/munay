@@ -1,0 +1,221 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Encabezado */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+}
+
+header .logo img {
+    height: 70px;
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+    margin-left: 50px;
+}
+
+header nav ul li {
+    margin-left: 200px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+header .auth-buttons .btn {
+    background-color: #ff5733;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+/* Sección Principal */
+.hero {
+    background-image: url('hamburger-hero.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.hero-text h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero .cta-buttons .btn {
+    background-color: #ff5733;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+/* Catálogo de Hamburguesas */
+.catalogo {
+    padding: 40px;
+    text-align: center;
+}
+
+.catalogo h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+.burger-grid {
+    display: flex;
+    justify-content: space-around;
+}
+
+.burger-item {
+    max-width: 200px;
+}
+
+.burger-item img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.burger-item h3 {
+    margin-top: 10px;
+    font-size: 22px;
+    color: #ff5733;
+}
+
+/* Testimonios */
+.testimonios {
+    padding: 40px;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.testimonios p {
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+/* Sobre Nosotros */
+.sobre-nosotros {
+    padding: 40px;
+    text-align: center;
+}
+
+/* Pie de Página */
+footer {
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+}
+
+footer .contacto p,
+footer .legal a {
+    margin-bottom: 10px;
+}
+
+footer .redes-sociales img {
+    height: 30px;
+    margin: 0 10px;
+}
+
+/* Formulario de Autenticación */
+.auth-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin: 50px auto;
+}
+
+.auth-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn {
+    background-color: #ff5733;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.btn:hover {
+    background-color: #e14a4e;
+}
+
+.google-btn {
+    background-color: #4285f4;
+}
+
+.google-btn:hover {
+    background-color: #357ae8;
+}
+
+p {
+    color: #777;
+}
+
+p a {
+    color: #ff5733;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
