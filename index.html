@@ -9,122 +9,86 @@
 <body>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-storage.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
         const firebaseConfig = {
-          apiKey: "AIzaSyD7nxrcQQQm8TLQdJqAOFYx47DxeRy1Xdg",
-          authDomain: "munay-d65ba.firebaseapp.com",
-          projectId: "munay-d65ba",
-          storageBucket: "munay-d65ba.appspot.com",
-          messagingSenderId: "93733098728",
-          appId: "1:93733098728:web:ec51e1b2f43e4649b5655d",
-          measurementId: "G-L5ZZKM7ZH2"
+            apiKey: "AIzaSyD7nxrcQQQm8TLQdJqAOFYx47DxeRy1Xdg",
+            authDomain: "munay-d65ba.firebaseapp.com",
+            projectId: "munay-d65ba",
+            storageBucket: "munay-d65ba.appspot.com",
+            messagingSenderId: "93733098728",
+            appId: "1:93733098728:web:ec51e1b2f43e4649b5655d",
+            measurementId: "G-L5ZZKM7ZH2"
         };
 
         const app = initializeApp(firebaseConfig);
-        const storage = getStorage(app);
-        const db = getFirestore(app);
+        const auth = getAuth();
 
-        async function uploadImagesAndSaveData(imagesData) {
-            for (const { file, name, description, price } of imagesData) {
-                const storageRef = ref(storage, 'hamburguesas/' + file.name);
+        // Manejo de la autenticación del usuario
+        onAuthStateChanged(auth, user => {
+            const loginBtn = document.getElementById('login-btn');
+            const registerBtn = document.getElementById('register-btn');
+            const userMenu = document.getElementById('user-menu');
+            const profilePic = document.getElementById('profile-pic');
+            const profileIcon = document.getElementById('profile-icon');
+            const signOutBtn = document.getElementById('sign-out-btn');
 
-                try {
-                    const snapshot = await uploadBytes(storageRef, file);
-                    console.log('Archivo subido con éxito:', snapshot);
+            if (user) {
+                loginBtn.style.display = 'none';
+                registerBtn.style.display = 'none';
+                userMenu.style.display = 'block';
+                profilePic.src = user.photoURL || 'default-profile-icon.png'; // URL de la foto de perfil o un icono por defecto
+                profileIcon.style.display = user.photoURL ? 'none' : 'block';
 
-                    const url = await getDownloadURL(storageRef);
-                    console.log('URL de descarga:', url);
-
-                    // Guarda la URL y otros datos en Firestore
-                    await addDoc(collection(db, 'hamburguesas'), {
-                        nombre: name,
-                        descripcion: description,
-                        precio: parseFloat(price),
-                        imagenUrl: url
+                signOutBtn.addEventListener('click', () => {
+                    signOut(auth).then(() => {
+                        console.log('Sesión cerrada');
+                        window.location.href = 'index.html'; // Redirige a la página principal
+                    }).catch(error => {
+                        console.error('Error al cerrar sesión:', error);
                     });
-                    console.log('Datos guardados con éxito.');
-                } catch (error) {
-                    console.error('Error al subir el archivo o guardar datos:', error);
-                }
+                });
+            } else {
+                loginBtn.style.display = 'block';
+                registerBtn.style.display = 'block';
+                userMenu.style.display = 'none';
             }
-        }
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Lista de datos de hamburguesas
-            const imagesData = [
-                { file: new File([''], 'hamburguesa1.png', { type: 'image/png' }), name: 'Hamburguesa Clásica', description: 'Carne de res, queso, lechuga, tomate y salsa especial.', price: '12.99' },
-                { file: new File([''], 'hamburguesa2.png', { type: 'image/png' }), name: 'Hamburguesa BBQ', description: 'Carne de res, bacon, cebolla caramelizada y salsa BBQ.', price: '13.99' },
-                // Añadir más hamburguesas aquí
-            ];
+            const googleSignInBtn = document.getElementById('google-signin-btn');
+            googleSignInBtn.addEventListener('click', async () => {
+                const provider = new GoogleAuthProvider();
+                try {
+                    await signInWithPopup(auth, provider);
+                    console.log('Inicio de sesión con Google exitoso');
+                } catch (error) {
+                    console.error('Error al iniciar sesión con Google:', error);
+                }
+            });
 
-            uploadImagesAndSaveData(imagesData);
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => document.getElementById('header-placeholder').innerHTML = data);
         });
     </script>
 
-<div id="header"></div>
-<script>
-    // Cargar el header desde header.html
-    fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header').innerHTML = data;
-        });
-</script>
-    <!-- Sección Principal -->
-    <section class="hero">
-        <div class="hero-text">
-            <h1>¡Las mejores hamburguesas gourmet están aquí!</h1>
-        </div>
-    </section>
+    <div id="header-placeholder"></div>
 
-    <!-- Cuerpo de la Página -->
-    <main>
-        <section class="catalogo">
-            <h2>Nuestras Hamburguesas</h2>
-            <div class="burger-grid">
-                <div class="burger-item">
-                    <img src="burger1.jpg" alt="Hamburguesa 1">
-                    <h3>Hamburguesa Clásica</h3>
-                    <p>Carne de res, queso, lechuga, tomate y nuestra salsa especial.</p>
-                </div>
-                <div class="burger-item">
-                    <img src="burger2.jpg" alt="Hamburguesa 2">
-                    <h3>Hamburguesa BBQ</h3>
-                    <p>Carne de res, bacon, cebolla caramelizada y salsa BBQ.</p>
-                </div>
-                <!-- Añadir más hamburguesas según sea necesario -->
+    <main class="auth-container">
+        <h2>Bienvenido a Munay Food Experience</h2>
+        <button id="google-signin-btn" class="btn google-btn">Iniciar sesión con Google</button>
+        <!-- Área de perfil de usuario -->
+        <div id="user-menu" class="user-menu" style="display: none;">
+            <img id="profile-pic" class="profile-pic" src="" alt="Foto de perfil">
+            <button id="profile-icon" class="btn">👤</button>
+            <div class="dropdown-menu">
+                <a href="#">Ajustes</a>
+                <a href="#">Pedidos</a>
+                <a href="#">Carrito</a>
+                <a href="#" id="sign-out-btn">Cerrar Sesión</a>
             </div>
-        </section>
-
-        <section class="testimonios">
-            <h2>Opiniones de Nuestros Clientes</h2>
-            <p>"¡Las mejores hamburguesas que he probado!" - Juan P.</p>
-            <p>"Excelente servicio y comida deliciosa." - Maria G.</p>
-        </section>
-
-        <section class="sobre-nosotros">
-            <h2>Sobre Nosotros</h2>
-            <p>En nuestro restaurante, nos enorgullece ofrecer hamburguesas gourmet de alta calidad, preparadas con ingredientes frescos y locales.</p>
-        </section>
+        </div>
     </main>
-
-    <!-- Pie de Página -->
-    <footer>
-        <div class="contacto">
-            <p>Dirección: Calle Falsa 123, Ciudad</p>
-            <p>Teléfono: (555) 123-4567</p>
-        </div>
-        <div class="redes-sociales">
-            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
-            <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
-            <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
-        </div>
-        <div class="legal">
-            <a href="#">Política de Privacidad</a> | <a href="#">Términos y Condiciones</a>
-        </div>
-    </footer>
-
 </body>
 </html>
